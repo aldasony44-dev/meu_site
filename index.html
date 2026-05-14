@@ -17,7 +17,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #f7f9fb;
   color: black;
-  position: 0;
+  position: fixed;
 }
 
 /* Header */
@@ -29,7 +29,7 @@ header {
   align-items: center;
   padding: 10px 50px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  position: 0;
+  position: fixed;
   top: 0;
   z-index: 1000;
 }
@@ -146,6 +146,10 @@ nav ul li a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.slide.active-slide {
+  display: block;
 }
 
 .active {
@@ -313,7 +317,7 @@ nav ul li a:hover {
 <div class="top">
 
   <div class="slider">
-    <div class="slide">
+    <div class="slide active-slide">
       <img src="https://lh3.googleusercontent.com/G0P-b_Jx7B7r_k2hbWhBzQCC9dwtU4EfTSXs_38Xmgq3ADqNAM0WcZO0hEJoQdjZYaThgYpBcg3hFRNg=s360-w360-h360" alt="Slide 1">
     </div>
     <div class="slide">
@@ -359,35 +363,62 @@ nav ul li a:hover {
   </footer>
 
 <script>
-/* Menu hamburger */
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('navMenu');
+  /* =========================
+   MENU HAMBURGER
+========================= */
 
-hamburger.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("navMenu");
+
+hamburger.addEventListener("click", () => {
+  navMenu.classList.toggle("active");
 });
 
-/* Slider */
-let slides = document.querySelectorAll(".slide");
+
+/* =========================
+   SLIDER
+========================= */
+
+const slides = document.querySelectorAll(".slide");
+
 let index = 0;
 
+/* ativa o primeiro slide ao carregar */
+slides[0].classList.add("active-slide");
+
 function showSlide(i){
-  slides[index].classList.remove("active");
+
+  /* remove slide atual */
+  slides[index].classList.remove("active-slide");
+
+  /* atualiza índice */
   index = i;
-  if(index >= slides.length) index = 0;
-  if(index < 0) index = slides.length - 1;
-  slides[index].classList.add("active");
+
+  /* volta ao início */
+  if(index >= slides.length){
+    index = 0;
+  }
+
+  /* volta ao último */
+  if(index < 0){
+    index = slides.length - 1;
+  }
+
+  /* mostra slide atual */
+  slides[index].classList.add("active-slide");
 }
 
+/* próximo slide */
 function nextSlide(){
   showSlide(index + 1);
 }
 
+/* slide anterior */
 function prevSlide(){
   showSlide(index - 1);
 }
 
-/* mudança automática a cada 3s */
+/* autoplay */
 setInterval(nextSlide, 3000);
 </script>
 
