@@ -55,7 +55,7 @@ VALUES ('$curso','$data_inscricao','$candidato_id')";
 $conn->query($sql3);
 
 // Redireciona de volta para o formulário com notificação de sucesso
-header("Location: index.html?success=1");
+header("Location: kalandula.html?success=1");
 exit;
 ?>
 
